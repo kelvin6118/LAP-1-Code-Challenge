@@ -101,7 +101,7 @@ app.get('/:key', (req, res) => {
     res.status(404)
   }else{
     //console.log(JSON.stringify(getSearchResult(req.params.key)))
-    res.json(getSearchResult(req.params.key))
+    res.json(JSON.stringify(getSearchResult(req.params.key)))
   }
 })
 

@@ -3,7 +3,7 @@
 const searchButton = document.getElementById("google_search");
 const randomRedirect = document.getElementById("im_feeling_lucky");
 const inputBox = document.getElementById('form-search');
-//const myList = document.getElementById('result-list');
+const myList = document.getElementById('result-list');
 
 
 //var result;
@@ -38,22 +38,19 @@ function search(event) {
   event.preventDefault();
   let input = inputBox.value;
   fetch(`http://localhost:4000/${input}`)
-    .then(resp => resp.text())
+    .then(resp => resp.json())
     .then(data => {
-      //result = text
+      var result = JSON.parse(data)
+      myList.innerHTML = '';
+      for (page of result) {
+        let listresult = document.createElement('li');
+        listresult.appendChild(
+          document.createElement('strong')
+        ).textContent = page.title;
+        myList.appendChild(listresult);
+      }
       //document.getElementById('results').innerHTML = data
-      document.getElementById('log').innerHTML = data}
-
-      /*data => {
-        for (const result of data) {
-          let listresult = document.createElement('li');
-          listresult.appendChild(
-            document.createElement('strong')
-          ).textContent = result.title;
-          myList.appendChild(listresult);
-        }
-      })*/
-
+      }
 
     )
 }
